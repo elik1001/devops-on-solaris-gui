@@ -1,0 +1,57 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+// added for expand
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  .mat-sort-header-sorted {
+    color: black;
+  }
+}
+
+.mat-row {
+  border-bottom: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .1);
+  }
+}
+
+.expandable-row {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  background-color: #fafafa;
+  // font-weight: lighter;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mat-column-expand {
+  flex: 0 0 40px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mat-column-id {
+  flex: 0 0 110px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.aligned-with-icon {
+  margin-right: 5px;
+  vertical-align: -5px;
+}

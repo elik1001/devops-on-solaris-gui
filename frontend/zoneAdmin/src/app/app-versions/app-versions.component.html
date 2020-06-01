@@ -1,0 +1,99 @@
+<div>
+  <div>
+    <mat-grid-list cols="4" rowHeight="75">
+      <div>
+        <mat-grid-tile>
+          <div class="text-inside-left-grid">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              <span matPrefix>
+                <mat-icon class="aligned-with-icon">search</mat-icon>
+              </span>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+  <mat-table class="mat-elevation-z8" mat-table [dataSource]="dataSource" [multiTemplateDataRows]="true" matSort matSortDisableClear>
+
+    <ng-container matColumnDef="expand">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        <mat-icon id="expand_more" #expand_more *ngIf="element.longId != expandedElement">keyboard_arrow_right</mat-icon>
+        <mat-icon id="expand_less" #expand_less *ngIf="element.longId === expandedElement">keyboard_arrow_down</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        {{element.id}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="appName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Application Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.appName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastVersion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Version </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastVersion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="defaultVersion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Default Version </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.defaultVersion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" [@expandableRow]="element.longId === expandedElement ? 'expanded' : 'collapsed'">
+        <div *ngIf="element.longId === expandedElement">
+          <p><b>ID:</b> {{ element.longId }}</p>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addApp()">
+          <mat-icon aria-label="Add a new Admin">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;" (click)="$event.stopPropagation()">
+        <button mat-icon-button color="primary" (click)="editApps(i, row.longId, row.id, row.appName, row.lastVersion, row.defaultVersion)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteApps(i, row.longId, row.id, row.appName, row.lastVersion, row.defaultVersion)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="_authService.loggedIn() && !_authService.canZoneAdmin()" matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon aria-label="Add a new Admin">plus</mat-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.actions}} </mat-cell>
+    </ng-container>
+
+    <!-- Header -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleExpandableSymbol(row.longId)"></mat-row>
+    <mat-row class="expandable-row" *matRowDef="let row; columns: ['expandedDetail'];">
+    </mat-row>
+
+
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+  <!--<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>-->
+
+</div>

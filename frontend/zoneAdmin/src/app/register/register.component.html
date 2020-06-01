@@ -1,0 +1,53 @@
+<div class="main-div">
+  <mat-card class="example-card">
+    <mat-card-content>
+      <form class="example-form" #formControl="ngForm">
+        <div class="loading-shade" *ngIf="isloggingIn">
+          <mat-spinner *ngIf="isloggingIn"></mat-spinner>
+        </div>
+        <div align="center">
+          <h1 class="logoLine">
+            <span>
+              <img class="logo-img-margin" src="../assets/images/logo.jpeg" alt="Company" width="120" height="75">
+            </span>
+          </h1>
+          <p class="login-header">Register / Request Access</p>
+        </div>
+        <hr style="padding: 0;">
+        <div class="mat-form-field-div" align="center">
+          <mat-form-field color="accent" class="mat-form-field-infix">
+            <input matInput #input class="form-control" placeholder="Username" [(ngModel)]="registerUserData.userID" name="userID" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="mat-form-field-div" align="center">
+          <mat-form-field color="accent" class="mat-form-field-infix">
+            <input matInput #inputpass class="form-control" placeholder="Password" [(ngModel)]="registerUserData.password" type="password" name="password" required minlength="8">
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="mat-form-field-div" align="center">
+          <mat-form-field color="accent" class="mat-form-field-infix">
+            <mat-label>Authentication Type</mat-label>
+            <select matNativeControl placeholder="Employee status" [(ngModel)]="registerUserData.isLocal" name="isLocal" required>
+              <option value="Local">Local</option>
+              <option value="LDAP">LDAP/AD</option>
+            </select>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-card-actions>
+          <div class="register-row" align="center">
+            <button mat-raised-button class="mat-button-big" (click)="registerUser()" type="submit" [disabled]="!formControl.valid" color="primary">Register</button>
+          </div>
+          <div align="center">
+            <!--<div *ngIf="errorLogin" style="color:red;">Error: 401 Unauthorized!</div>-->
+            <p>Already have an account? <a class="register-row-link" routerLink="/login" color="primary">Login</a></p>
+            <!--<mat-error *ngIf="formControl.errorLogin">{{getErrorMessage()}}</mat-error>-->
+          </div>
+        </mat-card-actions>
+      </form>
+      <!--<mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>-->
+    </mat-card-content>
+  </mat-card>
+</div>

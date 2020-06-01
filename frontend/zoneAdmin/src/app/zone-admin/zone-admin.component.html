@@ -1,0 +1,538 @@
+<mat-grid-list cols="4" rowHeight="268" style="top: -35px;">
+  <mat-grid-tile *ngFor="let zone of zoneStats" gutterSize="5px">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title style="margin-left: -20px;">
+          <span matPrefix>
+            <!--<mat-icon class="material-icons color_light_gray aligned-with-icon">server</mat-icon>-->
+            <mat-icon matListIcon style="vertical-align: -3px;" class="material-icons color_light_gray aligned-with-icon fa fa-server" aria-hidden="true"></mat-icon>
+          </span>
+          <span style="font-family: Righteous,cursive;">
+            {{zone.server}}
+          </span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-card-content>
+        <div>
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width:100px;">
+                  <mat-icon matListIcon style="vertical-align: -5px;" class="color_light_gray">developer_board</mat-icon>
+                  <span style="font-size: 14px;">
+                    Load:
+                  </span>
+                </td>
+                <!--3c4858-->
+                <td style="font-size: 7px; line-height: 12px; color: #999; text-align: right;">
+                  1 minute
+                  <br>5 minute
+                  <br>15 minute
+                </td>
+                <td style="font-size: 9px; line-height: 12px; text-align: right;">
+                  <div class="loading-shade" *ngIf="isLoadingCpuResults">
+                    <mat-spinner *ngIf="isLoadingCpuResults"></mat-spinner>
+                  </div>
+                  {{zone.cpu_avg1m}}
+                  <br>{{zone.cpu_avg5m}}
+                  <br>{{zone.cpu_avg15m}}
+                </td>
+              </tr>
+              <mat-divider [inset]="true"></mat-divider>
+              <tr>
+                <td style="width:100px;">
+                  <mat-icon matListIcon style="vertical-align: -5px;" class="color_light_gray">memory</mat-icon>
+                  <span style="font-size: 14px;">
+                    Memory:
+                  </span>
+                </td>
+                <td style="font-size: 7px; line-height: 12px; color: #999; text-align: right;">
+                  <br>Free mem(Gb)
+                  <br>Total mem(Gb)
+                </td>
+                <td style="font-size: 9px; line-height: 12px; text-align: right;">
+                  <br>{{zone.mem_free}}
+                  <br>{{zone.mem_total}}
+                </td>
+              </tr>
+              <mat-divider [inset]="true"></mat-divider>
+              <tr>
+                <td style="width:100px;">
+                  <mat-icon matListIcon style="font-size: 18px; margin-left: 3px; vertical-align: -9px;" class="color_light_gray fa fa-copy" aria-hidden="true"></mat-icon>
+                  <span style="font-size: 14px; vertical-align: -7px;">
+                    Zones:
+                  </span>
+                </td>
+                <td style="font-size: 7px; line-height: 12px; color: #999; text-align: right;">
+                  <br>Running
+                </td>
+                <td style="font-size: 9px; line-height: 12px; text-align: right;">
+                  <br>{{zone.zoneCount}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<div>
+  <div style="margin-top: -75px;">
+    <mat-grid-list cols="3" rowHeight="95">
+      <div>
+        <mat-grid-tile>
+          <table style="width: 100%;margin-top: 60px;">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 style="font-family: Righteous,cursive; margin: -56px 0 0 15px; font-size: 13px;">Quick filters:</h4>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:100px;">
+                  <div style="margin: -44px 0 0 16px;">
+                    <mat-checkbox #myZones color="accent" [matTooltip]="myZones.checked === false ? 'Check to filter your Zones' : 'Un-check to list all'" labelPosition="after" name="myZones" (change)="searchUser($event, 'myZones')"
+                      [checked]="myZonesChecked">
+                      <label style="font-family: cursive; font-size: 12px; text-transform: capitalize;">{{curentSearchUser}}'s Zones</label>
+                    </mat-checkbox>
+                    <mat-checkbox style="margin-left: 15px;" #selectDB color="accent" [matTooltip]="selectDB.checked === false ? 'Check to filter DB Zones' : 'Un-check to list all'" labelPosition="after" name="selectDB"
+                      (change)="searchUser($event, 'selectDB')" [checked]="selectDBChecked">
+                      <label style="font-size: 12px; text-transform: capitalize;">DB Zones</label>
+                    </mat-checkbox>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:100px;">
+                  <div style="margin: -13px 0 0 16px;">
+                    <mat-form-field style="margin-top: -10px;">
+                      <input matInput placeholder="Search zones" #searchIinput>
+                      <span matPrefix>
+                        <mat-icon class="aligned-with-icon">search</mat-icon>
+                      </span>
+                    </mat-form-field>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-grid-tile>
+        <mat-grid-tile>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field style="width: 45%; padding-left: 30%;">
+            <input matInput type="number" placeholder="0" required id="refreshTime" (focusout)="updateRefreshTime($event.target.value)" [(ngModel)]="refresh_value" name="refreshTime">
+            <button mat-icon-button matSuffix (click)="refreshTable()">
+              <mat-icon color="primary">
+                refresh
+              </mat-icon>
+            </button>
+            <mat-hint align="start">Refresh Time (10 sec min)</mat-hint>
+          </mat-form-field>
+          <h3>
+            <span style="font-family: Righteous,cursive; margin-left: 15px; color: #999;">
+              DC1
+            </span>
+          </h3>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <table mat-table class="mat-elevation-z8" mat-table [dataSource]="data" [multiTemplateDataRows]="true" matSort matSortActive="zoneServer" matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element; let i=index;">
+        <mat-icon id="expand_more" #expand_more *ngIf="element._id != expandedElementSymb">keyboard_arrow_right</mat-icon>
+        <mat-icon id="expand_less" #expand_less *ngIf="element._id === expandedElementSymb">keyboard_arrow_down</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="zoneMaint">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.zoneActivity && element.zoneActivity === 'NEW'">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px;" color="accent" selected>New</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneActivity === 'unknown' || !element.zoneActivity">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px; background-color: #9370DB;" color="primary" selected>Unkn</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneActivity && element.zoneActivity === 'SYNC'">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px; background-color: #FF69B4;" selected>Sync</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneActivity && element.zoneActivity === 'MAINT'">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px; background-color: #FF69B4;" selected>Mant</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneActivity && element.zoneActivity === 'REMOVE'">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px;" color="accent"  selected>Rmve</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneActivity === 'done'">
+          <mat-chip-list>
+            <mat-chip style="top: -4px; pointer-events: none; margin-left: 2px; min-height: 11px; padding: 2px; background-color: #149494;" selected>Done</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="element.zoneMaint">
+          <mat-icon color="warn" style="font-size: 14px; height: 14px;" class="fa fa-tools" aria-label="zoneMaint"></mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="buildStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; margin-left: -2px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-lightbulb" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <i class="{{element.buildStatus}}" aria-hidden="true"></i>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="zoneID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 21px; padding-top: 7px; margin-left: -2px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-list-ol" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element; let i = dataIndex;">
+        {{paginator.pageSize * paginator.pageIndex + i + 1}}
+        <!--<i *ngIf="zoneStarting[paginator.pageSize * paginator.pageIndex + i]" style="margin-left: 6px;" class="{{stateActionResultsIcon}}" aria-hidden="true"></i>-->
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="zoneLock">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" aria-label="lockStat">
+          lock_outlined
+        </mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element" [ngStyle]="{'color': getColor(element.zoneLock)}">
+        <mat-icon aria-label="Edit">{{element.zoneLock}}</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- zoneType Column -->
+    <ng-container matColumnDef="zonePort">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; margin-left: 2px;color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-network-wired" aria-label="refreshDb"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.zonePort}} </td>
+    </ng-container>
+
+    <!-- zoneType Column -->
+    <ng-container matColumnDef="zoneUser">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="padding-top: 3px; margin-left: -2px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" aria-label="Edit">
+          person_oulined
+        </mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.zoneUser}} </td>
+    </ng-container>
+
+    <!-- zoneType Column -->
+    <ng-container matColumnDef="zoneType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <!--<mat-icon style="font-size: 22px; padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-shapes" aria-label="server"></mat-icon>-->
+        <mat-icon style="padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" aria-label="Settings">
+          settings_oulined
+        </mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.zoneType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="activeSchema">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; margin-left: -2px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-database" aria-label="refreshDb"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox #activeSchema onclick="return false;" [(ngModel)]="element.activeSchema"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- firstName Column -->
+    <ng-container matColumnDef="zoneShortName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-code-branch" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.zoneShortName.includes('UNX-')">
+          <!--<a #jiraTooltip="matTooltip" (mouseover)="getJiraDescription(element.zoneShortName, element.jiraID)"
+        matTooltip="{{jiraDescription}}"-->
+
+          <a #jiraTooltip="matTooltip" (mouseover)="getJiraDescription(element.zoneShortName, element.jiraID)" matTooltip="{{jiraDescription}}" matTooltipShowDelay="750" matTooltipHideDelay="750" style="text-decoration: none;"
+            href="https://jira.domain.com/browse/{{element.zoneShortName}}" target="_blank">{{element.zoneShortName}}</a>
+        </div>
+        <div *ngIf="!element.zoneShortName.includes('UNX-')">
+          {{element.zoneShortName}}
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- lastName Column -->
+    <ng-container matColumnDef="zoneServer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-server" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.zoneServer}} </td>
+    </ng-container>
+
+    <!-- empActive Column -->
+    <ng-container matColumnDef="zoneActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-heartbeat" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element; let i = dataIndex;" [ngStyle]="{'color': getColor(element.zoneActive)}">
+        {{element.zoneActive}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="buildMsg">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon style="font-size: 22px; padding-top: 3px; color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-tasks" aria-label="server"></mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let element;">
+        <div style="width: 100%">
+          <div style="width: 90%">
+            <mat-slider [(ngModel)]="element.percentComplete" thumbLabel="true" min="1" max="100">
+            </mat-slider>
+          </div>
+          <div style="font-size: 13px; margin: -16px auto 5px auto; width: 100%;">
+            {{element.buildMsg}}
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element; let i = dataIndex;" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <mat-grid-list style="width: 100%;" cols="1" rowHeight="350">
+            <mat-grid-tile gutterSize="5px">
+              <!--<div style="width: 100%; margin-top: 5px;" *ngIf="element._id === expandedElement">-->
+              <div style="width: 100%; margin-top: 5px;">
+                <mat-card>
+                  <mat-card-content style="overflow: auto; max-height: 300px; margin-bottom: 20px; min-height: 300px;">
+                    <p><b>Zone ID: </b> {{ element._id }} / {{element.zoneShortName}}</p>
+                    <mat-divider></mat-divider>
+                    <table>
+                      <colgroup>
+                        <col width="50%">
+                        <col width="50%">
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;" *ngFor="let dc1Item of element.dc1">
+                            <div style="width: 90%; margin-top: -15px;">
+                              <h4>{{dc1Item.zoneServer}}</h4>
+                              <div style="margin: -18px auto auto -5px">
+                                <mat-slider [(ngModel)]="dc1Item.percentComplete" thumbLabel="true" min="1" max="100">
+                                </mat-slider>
+                              </div>
+                              <div style="margin: -10px auto 7px auto;">
+                                {{dc1Item.buildMsg}}
+                              </div>
+                            </div>
+                          </td>
+                          <td style="text-align: left;" *ngFor="let dc2Item of element.dc2">
+                            <div style="width: 90%; margin-top: -15px">
+                              <h4>{{dc2Item.zoneServer}}</h4>
+                              <div style="margin: -18px auto auto -5px">
+                                <mat-slider [(ngModel)]="dc2Item.percentComplete" thumbLabel="true" min="1" max="100">
+                                </mat-slider>
+                              </div>
+                              <div style="margin: -10px auto 7px auto;">
+                                {{dc2Item.buildMsg}}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <mat-divider></mat-divider>
+                    <table>
+                      <colgroup>
+                        <col width="50%">
+                        <col width="25%">
+                        <col width="25%">
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th style="text-align: left;">Zone Name</th>
+                          <th style="text-align: left;">SSH Port</th>
+                          <th style="text-align: left;">DB Port</th>
+                        </tr>
+                        <tr>
+                          <td>{{element.zoneName}}</td>
+                          <td>{{element.zonePort}}</td>
+                          <td>{{(+element.zonePort + 500)}}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: left;">Active DB Version</th>
+                          <th style="text-align: left;">Active App Version</th>
+                          <th style="text-align: left;"></th>
+                        </tr>
+                        <tr>
+                          <td>ifxdb-do_v-{{element.dbVer}}</td>
+                          <td>apps1-prod_v-{{element.appsVer}}</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div>
+                      <p><b>Zone description: </b> {{element.zoneDescription}}</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <table style="padding: 20px 0 20px 0;">
+                      <colgroup>
+                        <col width="66%">
+                        <col width="33%">
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th colspan="2">Version History</th>
+                        </tr>
+                        <tr>
+                          <th style="text-align: left;">App History</th>
+                          <th style="text-align: left">Created</th>
+                        </tr>
+                        <tr *ngFor="let appVersion of element.appVersions">
+                          <td>
+                            {{appVersion.fullVersion}}
+                          </td>
+                          <td>
+                            {{appVersion.versionTime}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table>
+                      <colgroup>
+                        <col width="66%">
+                        <col width="33%">
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th style="text-align: left">DB History</th>
+                          <th style="text-align: left">Created</th>
+                        </tr>
+                        <tr *ngFor="let dbVersion of element.dbVersions">
+                          <td>
+                            {{dbVersion.fullVersion}}
+                          </td>
+                          <td>
+                            {{dbVersion.versionTime}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </td>
+
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container *ngIf="_authService.loggedIn() && _authService.canUsers()" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addZone()">
+          <mat-icon aria-label="Add a new Jira">add</mat-icon>
+        </button>
+      </th>
+
+
+
+
+      <td mat-cell *matCellDef="let row; let i = dataIndex;" (click)="$event.stopPropagation()">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <div style="overflow: hidden;">
+            <button mat-icon-button matTooltip="Edit zone details" color="primary"
+              (click)="editZone(i, row._id, row.id, row.zoneLock, row.zonePort, row.zoneUser, row.zoneType, row.zoneName, row.zoneShortName, row.activeSchema, row.zoneServer, row.zoneActive, row.zoneAddress, row.dbVer, row.appsVer, row.zoneDescription, row.zoneMaint)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <div *ngIf="row.zoneActive !== 'shutting_down'" style="display: inline-block;">
+              <button mat-icon-button matTooltip="Delete zone" color="accent"
+                (click)="deleteZone(i, row._id, row.id, row.zoneLock, row.zonePort, row.zoneUser, row.zoneType, row.zoneName, row.zoneShortName, row.activeSchema, row.zoneServer, row.zoneActive, row.zoneAddress, row.jiraID, row.appsVer, row.dbVer)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="row.zoneType !== 'FS' && row.zoneType !== 'DB'" style="display: inline-block;">
+              <mat-divider vertical style="height:25px; vertical-align: bottom; display: inline-block; margin-bottom: 7px;"></mat-divider>
+              <button mat-icon-button matTooltip="Refresh Jira" color="primary" (click)="refreshAll(row.zoneType, row.zoneName, row.zoneShortName, row.zoneServer, row.zonePort, row.dbVer, row.appsVer)">
+                <span>
+                  <mat-icon mat-icon-button style="color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5; vertical-align: -5px; font-size: 13px;" class="fa fa-database" aria-label="refreshDb"></mat-icon>
+                  <mat-icon mat-icon-button style="color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5; vertical-align: -5px; font-size: 13px; margin-left: -6px;" class="fa  fa-code-branch" aria-label="refreshApp"></mat-icon>
+                  <mat-icon mat-icon-button style="margin: 4px 0 0 8px; color: transparent; text-shadow: 0px 0px 0px #3f51b5; font-size: 24px; font-weight: bold;" class="material-icons-two-tone fa-stack-1x">cached_out
+                  </mat-icon>
+                </span>
+              </button>
+            </div>
+            <div *ngIf="row.zoneActive === 'running'" style="display: inline-block;">
+              <button mat-icon-button matTooltip="Modify Zone schedules (SMF)" color="primary" (click)="zoneCalendar(row.zoneType, row.zoneName, row.zoneShortName, row.zoneServer, row.zonePort)">
+                <mat-icon mat-icon-button style="font-size: 18px;" class="fa fa-calendar-alt" aria-label="schedules"></mat-icon>
+                <!--<mat-icon aria-label="Delete">calendar-alt</mat-icon>-->
+              </button>
+            </div>
+            <mat-divider></mat-divider>
+            <div *ngIf="row.zoneActive === 'running' || row.zoneActive === 'installed'" style="display: inline-block;">
+              <!--<mat-divider vertical style="height:25px; vertical-align: bottom; display: inline-block; margin-bottom: 7px;"></mat-divider>-->
+              <button mat-icon-button [matTooltip]="row.zoneActive === 'running' ? 'Power off zone' : 'Power on zone'" color="accent"
+                (click)="powerOnOff(paginator.pageSize * paginator.pageIndex + i, row, row._id, row.buildStatus, row.zoneName, row.zoneServer, row.zoneActive)">
+                <mat-icon [ngStyle]="{'color': getPowerColor(row.zoneActive)}">power_settings_new</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="row.zoneActive === 'running'" style="display: inline-block;">
+              <button mat-icon-button [matTooltip]="'Reboot zone'" color="accent" (click)="powerOnOff(paginator.pageSize * paginator.pageIndex + i, row, row._id, row.buildStatus, row.zoneName, row.zoneServer, row.zoneActive, 'reboot')">
+                <mat-icon class="fa fa-redo" style='color: #8A2BE2; font-size: 16px;'></mat-icon>
+                <!--<mat-icon mat-icon-button style="color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5; vertical-align: -5px; font-size: 13px;" class="fa fa-sync" aria-label="refreshDb"></mat-icon>
+                <mat-icon mat-icon-button style="color: white; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5; vertical-align: -5px; font-size: 13px; margin-left: -6px;" class="fa fa-power-off" aria-label="refreshApp"></mat-icon>-->
+              </button>
+            </div>
+          </div>
+        </mat-menu>
+
+      </td>
+
+    </ng-container>
+
+    <ng-container *ngIf="_authService.loggedIn() && !_authService.canUsers()" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let element"> {{element.actions}} </td>
+    </ng-container>
+
+    <!-- Header -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === row"
+      (click)="expandedElement = expandedElement === row ? null : row; toggleExpandableSymbol(row._id)"></tr>
+    <tr mat-row mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <!--
+    <mat-row *matRowDef="let row; columns: displayedColumns; let i=index;" (click)="toggleExpandableSymbol(row._id)"></mat-row>
+    <mat-row class="expandable-row" *matRowDef="let row; columns: ['expandedDetail'];">
+    </mat-row>-->
+
+
+  </table>
+
+  <mat-paginator #paginator [showFirstLastButtons]="true" [pageIndex]="0" [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+</div>

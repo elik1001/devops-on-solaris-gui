@@ -1,0 +1,106 @@
+<div>
+  <div>
+    <mat-grid-list cols="4" rowHeight="75">
+      <div>
+        <mat-grid-tile>
+          <div>
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              <span matPrefix>
+                <mat-icon class="aligned-with-icon">search</mat-icon>
+              </span>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+  <mat-table class="mat-elevation-z8" mat-table [dataSource]="dataSource" [multiTemplateDataRows]="true" matSort matSortDisableClear>
+
+    <ng-container matColumnDef="expand">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        <mat-icon id="expand_more" #expand_more *ngIf="element.longId != expandedElement">keyboard_arrow_right</mat-icon>
+        <mat-icon id="expand_less" #expand_less *ngIf="element.longId === expandedElement">keyboard_arrow_down</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        {{element.id}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="userID">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> User Login </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userID}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="adminRole">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.adminRole}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isLocal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Auth Type </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngStyle]="{'color':element.isLocal === 'LDAP' ? '#5F9EA0' : '#483D8B'}"> {{element.isLocal}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isActive">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngStyle]="{'color':element.isActive === 'Active' ? 'green' : 'red'}"> {{element.isActive}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pswdReset">
+      <mat-header-cell *matHeaderCellDef> Password Reset </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <!--<mat-checkbox #pswdReset (click)="changeValue(checked)" [(ngModel)]="element.checked"></mat-checkbox>-->
+        <!--<mat-checkbox #pswdReset (click)="changeValue(checked)" onclick="return false;"></mat-checkbox>-->
+        <mat-checkbox #pswdReset onclick="return false;" [(ngModel)]="element.pswdReset"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" [@expandableRow]="element.longId === expandedElement ? 'expanded' : 'collapsed'">
+        <div *ngIf="element.longId === expandedElement">
+          <p><b>ID:</b> {{ element.longId }}</p>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addUser()">
+          <mat-icon aria-label="Add a new Admin">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;" (click)="$event.stopPropagation()">
+        <button mat-icon-button color="primary" (click)="editUser(i, row.longId, row.id, row.userID, row.adminRole, row.isLocal, row.isActive, row.pswdReset)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteUser(i, row.longId, row.id, row.userID, row.adminRole, row.isLocal, row.isActive, row.pswdReset)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Header -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleExpandableSymbol(row.longId)"></mat-row>
+    <mat-row class="expandable-row" *matRowDef="let row; columns: ['expandedDetail'];">
+    </mat-row>
+
+
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+  <!--<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>-->
+
+</div>

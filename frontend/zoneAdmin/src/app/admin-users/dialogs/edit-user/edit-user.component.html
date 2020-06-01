@@ -1,0 +1,82 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Edit Employee: {{data.userID}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onNoClick()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <mat-grid-list cols="1" rowHeight="380px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #input class="form-control" placeholder="ID" [(ngModel)]="data.id" name="id" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #userid class="form-control" placeholder="User ID/Login" [(ngModel)]="data.userID" name="userID" maxlength="8" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-hint align="end">{{userid.value?.length || 0}}/8</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <mat-form-field color="accent">
+              <mat-label>Role</mat-label>
+              <select matNativeControl placeholder="Employee status" [(ngModel)]="data.adminRole" name="adminRole" required>
+                <option value="Admin">Admin</option>
+                <option value="Zone-Admin">Zone-Admin</option>
+                <option value="Zone-Users">Zone-Users</option>
+                <option value="Zone-Guests">Zone-Guests</option>
+              </select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <mat-form-field color="accent">
+              <mat-label>Authentication Type</mat-label>
+              <select matNativeControl placeholder="Employee status" [(ngModel)]="data.isLocal" name="isLocal" required>
+                <option value="Local">Local</option>
+                <option value="LDAP">LDAP/AD</option>
+              </select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <mat-form-field color="accent">
+              <mat-label>Status</mat-label>
+              <select matNativeControl placeholder="Employee status" [(ngModel)]="data.isActive" name="isActive" required>
+                <option value="Active">Active</option>
+                <option value=" Disabled">Disabled</option>
+              </select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form">
+            <div class="mat-form-field-div">
+              <!--<mat-checkbox #pswdReset olor="accent" labelPosition="before" (click)="changeValue(checked)" name="pswdReset" [(ngModel)]="data.pswdReset">-->
+              <mat-checkbox #pswdReset color="accent" labelPosition="before" name="pswdReset" [(ngModel)]="data.pswdReset">
+                <span matPrefix>
+                  <mat-icon class="material-icons color_light_gray aligned-with-icon" style="cursor: initial;">lock_open</mat-icon>
+                </span>
+                <label>Reset Password</label>
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div mat-dialog-actions>
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

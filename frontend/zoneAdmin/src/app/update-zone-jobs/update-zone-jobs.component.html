@@ -1,0 +1,115 @@
+<div>
+  <div>
+    <mat-grid-list cols="4" rowHeight="75">
+      <div>
+        <mat-grid-tile>
+          <div class="text-inside-left-grid">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              <span matPrefix>
+                <mat-icon class="aligned-with-icon">search</mat-icon>
+              </span>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+  <mat-table class="mat-elevation-z8" mat-table [dataSource]="dataSource" [multiTemplateDataRows]="true" matSort matSortDisableClear>
+
+    <ng-container matColumnDef="expand">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        <mat-icon id="expand_more" #expand_more *ngIf="element._id != expandedElement">keyboard_arrow_right</mat-icon>
+        <mat-icon id="expand_less" #expand_less *ngIf="element._id === expandedElement">keyboard_arrow_down</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <!--<ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;">
+        {{element.id}}
+      </mat-cell>
+    </ng-container>-->
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Job Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="failCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fail </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.failCount}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="failReason">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fail Reason </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.failReason}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="failedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Failed At </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.failedAt}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lockedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Lock State </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lockedAt}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nextRunAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Next Run At </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nextRunAt}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" [@expandableRow]="element._id === expandedElement ? 'expanded' : 'collapsed'">
+        <div *ngIf="element._id === expandedElement">
+          <p><b>ID:</b> {{ element._id }}</p>
+          <p><b>Job Details:</b></p>
+            <div *ngFor="let item of element.data | keyvalue">
+              <b>{{item.key}}: </b>{{item.value}}
+            </div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;" (click)="$event.stopPropagation()">
+        <button mat-icon-button color="primary" [disabled]='row.failCount >= 1 ? false : true' (click)="updateZoneJob(i, row._id, row.name, row.nextRunAt, row.failCount)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteZoneJob(i, row._id, row.name, row.lastRunAt, row.failCount)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="_authService.loggedIn() && !_authService.canZoneAdmin()" matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-icon aria-label="Add a new Admin">plus</mat-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.actions}} </mat-cell>
+    </ng-container>
+
+    <!-- Header -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleExpandableSymbol(row._id)"></mat-row>
+    <mat-row class="expandable-row" *matRowDef="let row; columns: ['expandedDetail'];">
+    </mat-row>
+
+
+  </mat-table>
+
+  <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+  <!--<mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>-->
+
+</div>

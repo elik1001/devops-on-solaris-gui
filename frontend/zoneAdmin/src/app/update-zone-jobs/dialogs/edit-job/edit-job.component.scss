@@ -1,0 +1,24 @@
+.mat-form-field-div {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.aligned-with-icon {
+  margin-right: 5px;
+  vertical-align: bottom;
+}
+
+.material-icons.color_light_gray {
+  color: #757575;
+}
+
+mat-card {
+  width: calc(100% - 70px);
+  height: calc(100% - 120px);
+}
+
+mat-form-field {
+  width: 80%;
+  padding-top: 3px;
+}

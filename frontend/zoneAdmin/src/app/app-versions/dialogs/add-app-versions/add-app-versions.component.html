@@ -1,0 +1,47 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Add New Application</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onNoClick()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <mat-grid-list cols="1" rowHeight="380px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #input class="form-control" placeholder="ID" [(ngModel)]="data.id" name="id" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #appName class="form-control" placeholder="App name" [(ngModel)]="data.appName" name="appName" maxlength="5" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-hint align="end">{{appName.value?.length || 0}}/5</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #lastVersion class="form-control" placeholder="Last version" [(ngModel)]="data.lastVersion" name="lastVersion" type="number" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #defaultVersion class="form-control" placeholder="Default Version" [(ngModel)]="data.defaultVersion" name="defaultVersion" type="number" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div mat-dialog-actions>
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

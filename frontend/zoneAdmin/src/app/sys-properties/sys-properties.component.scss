@@ -1,0 +1,17 @@
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+}
+
+mat-card {
+  width: calc(100% - 70px);
+  height: calc(100% - 120px);
+}
+
+mat-form-field {
+  width: 80%;
+  padding-top: 3px;
+}

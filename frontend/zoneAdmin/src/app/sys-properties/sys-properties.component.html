@@ -1,0 +1,418 @@
+<mat-grid-list cols="1" rowHeight="595" style="top: -35px;">
+  <mat-grid-tile gutterSize="5px">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title style="margin-left: -20px;">
+          <span matPrefix>
+            <!--<mat-icon class="material-icons color_light_gray aligned-with-icon">server</mat-icon>-->
+            <mat-icon matListIcon style="vertical-align: -3px;" class="material-icons color_light_gray aligned-with-icon fa fa-cog" aria-hidden="true"></mat-icon>
+          </span>
+          <span style="font-family: Righteous,cursive;">
+            System Properties
+          </span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider [inset]="true"></mat-divider>
+      <mat-card-content>
+        <form #formControl="ngForm" [formGroup]="updateSysProp">
+          <div>
+            <!-- style="overflow: auto;"-->
+            <!--<mat-grid-list cols="3" rowHeight="500" style="top: -35px;">-->
+            <mat-grid-list cols="3" rowHeight="830" style="overflow: auto; min-height: 385px; max-height: 385px;">
+              <mat-grid-tile gutterSize="5px">
+                <table style="width: 100%; margin-top: -10px;">
+                  <tbody>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #loginSessionTimeout formControlName="loginSessionTimeout" id="defaultLoginSessionTimeout" class="form-control" placeholder="Login Session Timeout">
+                          <mat-hint align="start">
+                            Exmaple: <strong>3600</strong> (seconds).
+                          </mat-hint>
+                          <!--<mat-error *ngIf="newZoneForm.controls['loginSessionTimeout'].errors?.exsisting_zone">{{exsisting_zone}}</mat-error>-->
+                          <mat-error *ngIf="updateSysProp.controls['loginSessionTimeout'].errors?.required">Required field.</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #sessionIssuer formControlName="sessionIssuer" id="defaultsessionIssuer" class="form-control" placeholder="Session Issuer">
+                          <mat-hint align="start">
+                            Exmaple: <strong>ORG123</strong>(Organization name.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #sessionAudience formControlName="sessionAudience" id="defaultsessionAudience" class="form-control" placeholder="Session Audience">
+                          <mat-hint align="start">
+                            Exmaple: <strong>192.168.10.10</strong>(Organization IP.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapServers formControlName="ldapServers" id="defaultLdapServers" class="form-control" placeholder="Ldap Server List">
+                          <mat-hint align="start">
+                            Exmaple: <strong>10.150.12.41:1389</strong>(Ldap(s):port.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapProto formControlName="ldapProto" id="defaultldapProto" class="form-control" placeholder="Ldap protocol - ldap or ldaps">
+                          <mat-hint align="start">
+                            Exmaple: <strong>ldap or ldaps</strong>(LDAP protocol.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapsHostFqDomain formControlName="ldapsHostFqDomain" id="defaultldapsHostFqDomain" class="form-control" placeholder="Ldaps FQDN - only used if ldaps">
+                          <mat-hint align="start">
+                            Exmaple: <strong>ldap.domain.com</strong>(LDAP FQDN.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapCertCALoc formControlName="ldapCertCALoc" id="defaultldapCertCALoc" class="form-control" placeholder="Ldap certificate location - only used if ldaps">
+                          <mat-hint align="start">
+                            Exmaple: <strong>/sslcert/ldap-certificate.pem</strong>
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapUserBaseDn formControlName="ldapUserBaseDn" id="defaultLdapUserBaseDn" class="form-control" placeholder="Ldap user search Base Dn">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc=domain,dc=com</strong>(Ldap base DN.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #ldapServerConTimeout formControlName="ldapServerConTimeout" id="defaultLdapServerConTimeout" class="form-control" placeholder="Ldap Connection Timeout">
+                          <mat-hint align="start">
+                            Exmaple: <strong>5000</strong>(Bind timeout / milliseconds.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #dc1LdapPorifleName formControlName="dc1LdapPorifleName" id="defaultDc1LdapPorifleName" class="form-control" placeholder="DC1 Ldap Porifle Name">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc1-ldap_profile-ssl</strong>(Profile name.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #dc1LdapPorifleIp formControlName="dc1LdapPorifleIp" id="defaultDc1LdapPorifleIp" class="form-control" placeholder="DC1 Ldap Porifle IP">
+                          <mat-hint align="start">
+                            Exmaple: <strong>10.10.10.10:636</strong>(Profile IP.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="password" #keyPassword formControlName="keyPassword" id="defaultkeyPassword" class="form-control" placeholder="Certificate key passowrd">
+                          <mat-hint align="start">
+                            Exmaple: <strong>pas$sorD</strong>(SSH Certificate password.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                  </tbody>
+                </table>
+              </mat-grid-tile>
+              <mat-grid-tile gutterSize="5px">
+                <table style="width: 100%; margin-top: -10px;">
+                  <tbody>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #dc2LdapPorifleName formControlName="dc2LdapPorifleName" id="defaultDc2LdapPorifleName" class="form-control" placeholder="DC2 Ldap Porifle Name">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc2-ldap_profile-ssl</strong>(Profile name.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #dc2LdapPorifleIp formControlName="dc2LdapPorifleIp" id="defaultDc2LdapPorifleIp" class="form-control" placeholder="DC2 Ldap Porifle IP">
+                          <mat-hint align="start">
+                            Exmaple: <strong>10.10.20.10:636</strong>(Profile IP.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #minZonePort formControlName="minZonePort" id="defaultminZonePort" class="form-control" placeholder="Lowest starting SSH zone port">
+                          <mat-hint align="start">
+                            Exmaple: <strong>31011</strong>(First SSH Zone port.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #radZonePort formControlName="radZonePort" id="defaultradZonePort" class="form-control" placeholder="Solaris RAD Zone Port prefix">
+                          <mat-hint align="start">
+                            Exmaple: <strong>41</strong>(RAD port prefix.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #jiraLogin formControlName="jiraLogin" id="defaultjiraLogin" class="form-control" placeholder="Jira Login ID">
+                          <mat-hint align="start">
+                            Exmaple: <strong>UserA</strong>(Jira login ID.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="password" #jiraPassword formControlName="jiraPassword" id="defaultjiraPassword" class="form-control" placeholder="Jira Password">
+                          <mat-hint align="start">
+                            Exmaple: <strong>pas$sorD</strong>(Jira password.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #jiraApiUrl formControlName="jiraApiUrl" id="defaultjiraApiUrl" class="form-control" placeholder="Jira Api URL">
+                          <mat-hint align="start">
+                            Exmaple: <strong>https://jira.domain.com/rest/api/2/issue/</strong>(Jira API URL.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field style="padding-top: 10px;" color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #radZoneAvalTimeOut formControlName="radZoneAvalTimeOut" id="defaultradZoneAvalTimeOut" class="form-control" placeholder="Solaris RAD Zone Aval TimeOut">
+                          <mat-hint align="start">
+                            Exmaple: <strong>300</strong>(RAD Aval timeout/seconds.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #rootGlobalHostUser formControlName="rootGlobalHostUser" id="defaultrootGlobalHostUser" class="form-control" placeholder="Root Global Host User">
+                          <mat-hint align="start">
+                            Exmaple: <strong>root</strong>(Global root user.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="password" #rootGlobalHostPassword formControlName="rootGlobalHostPassword" id="defaultrootGlobalHostPassword" class="form-control" placeholder="Root Global Host Password">
+                          <mat-hint align="start">
+                            Exmaple: <strong>pas$sorD</strong>(root password.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #rootZoneUser formControlName="rootZoneUser" id="defaultrootZoneUser" class="form-control" placeholder="Admin Zone User">
+                          <mat-hint align="start">
+                            Exmaple: <strong>confmgr</strong>(Zone admin user.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="password" #rootZonePassword formControlName="rootZonePassword" id="defaultrootZonePassword" class="form-control" placeholder="Admin User Zone Password">
+                          <mat-hint align="start">
+                            Exmaple: <strong>pas$sorD</strong>(Zone password.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                  </tbody>
+                </table>
+              </mat-grid-tile>
+              <mat-grid-tile gutterSize="5px">
+                <!--<table style="width: 100%; margin-top: -80px;">-->
+                <table style="width: 100%; margin-top: -10px;">
+                <!--<table style="width: 100%; margin-top: -85px;">-->
+                  <tbody>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaUrl formControlName="zfssaUrl" id="defaultzfssaUrl" class="form-control" placeholder="ZFSSA URL">
+                          <mat-hint align="start">
+                            Example: <strong>https://dc1nas2a.domain.com:215</strong>
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaUser formControlName="zfssaUser" id="defaultzfssaUser" class="form-control" placeholder="ZFSSA API User">
+                          <mat-hint align="start">
+                            Exmaple: <strong>userA</strong>(ZFSSA loginID.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="password" #zfssaPassword formControlName="zfssaPassword" id="defaultzfssaPassword" class="form-control" placeholder="ZFSSA API Password">
+                          <mat-hint align="start">
+                            Exmaple: <strong>pas$sorD</strong>(ZFSSA API password.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaPool formControlName="zfssaPool" id="defaultzfssaPool" class="form-control" placeholder="ZFSSA Pool">
+                          <mat-hint align="start">
+                            Exmaple: <strong>HP-pool1</strong>(ZFSSA pool.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaProject formControlName="zfssaProject" id="defaultzfssaProject" class="form-control" placeholder="ZFSSA Project">
+                          <mat-hint align="start">
+                            Exmaple: <strong>do-project1</strong>(ZFSSA project.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaAppsQuota formControlName="zfssaAppsQuota" id="defaultzfssaAppsQuota" class="form-control" placeholder="Zfssa Apps Quota(Gb)">
+                          <mat-hint align="start">
+                            Exmaple: <strong>400</strong>(apps share quote.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #zfssaDbQuota formControlName="zfssaDbQuota" id="defaultzfssaDbQuota" class="form-control" placeholder="Zfssa DB Quota(Gb)">
+                          <mat-hint align="start">
+                            Exmaple: <strong>10</strong>(db share quote.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #globalHostList formControlName="globalHostList" id="defaultglobalHostList" class="form-control" placeholder="Global Host List">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc1-srv1,dc2-srv1</strong>(Server list.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #globalDcList formControlName="globalDcList" id="defaultglobalDcList" class="form-control" placeholder="Data Center List">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc1, dc2</strong>(Data center list.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #primeDc formControlName="primeDc" id="defaultprimeDc" class="form-control" placeholder="Primery Data Center">
+                          <mat-hint align="start">
+                            Exmaple: <strong>dc1</strong>(Primery Data center.)
+                          </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #nodeDomain formControlName="nodeDomain" id="defaultnodeDomain" class="form-control" placeholder="Node Domain">
+                          <mat-hint align="start">
+                            Exmaple: <strong>domain.com</strong> (Domain name)
+                          </mat-hint>
+                          <!--<mat-error *ngIf="newZoneForm.controls['loginSessionTimeout'].errors?.exsisting_zone">{{exsisting_zone}}</mat-error>-->
+                          <mat-error *ngIf="updateSysProp.controls['loginSessionTimeout'].errors?.required">Required field.</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="form">
+                        <mat-form-field color="accent">
+                          <input readonly="{{readAccess}}" matInput style="font-size: 18px;" type="text" #winstonLogLevel formControlName="winstonLogLevel" id="defaultwinstonLogLevel" class="form-control" placeholder="System Log Level">
+                          <mat-hint align="start">
+                            Exmaple: <strong>info</strong> (Winston log level)
+                          </mat-hint>
+                          <!--<mat-error *ngIf="newZoneForm.controls['loginSessionTimeout'].errors?.exsisting_zone">{{exsisting_zone}}</mat-error>-->
+                          <mat-error *ngIf="updateSysProp.controls['loginSessionTimeout'].errors?.required">Required field.</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </tr>
+                  </tbody>
+                </table>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
+          <div style="padding: 15px;" align="right" mat-dialog-actions>
+            <button [ngClass]="(!formControl.valid || !submitBtn) ? 'sms-font sms-btn-disabled' : 'sms-font sms-btn'" mat-raised-button color="primary" type="submit" [disabled]="(!formControl.valid || !submitBtn)" (click)="updateSystemProps()">Save</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

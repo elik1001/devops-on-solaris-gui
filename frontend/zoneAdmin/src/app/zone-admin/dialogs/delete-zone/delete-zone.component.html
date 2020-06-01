@@ -1,0 +1,148 @@
+<div class="container">
+  <h3 mat-dialog-title style="text-align: center;"><b>Are you sure? <br></b>Delete Zone: <b>{{data.zoneName}}?</b></h3>
+  <mat-divider style="margin-top: -15px; padding-bottom: 13px;"></mat-divider>
+  <div style="height: 215px; width: 550px;" mat-dialog-content>
+    <b>Zone ID:</b> {{data.zoneUuid}}
+    <p></p>
+    <b>Zone server:</b> {{data.zoneServer}}
+    <p></p>
+    <b>Zone name:</b> {{data.zoneName}}
+    <p></p>
+    <!--<div style="display: flex; flex-direction: row;">-->
+    <div>
+      <b>Associated snaps to delete:</b>
+      <div style="margin-top: 10px;">
+        <mat-chip-list class="my-mat-standard-chip">
+          <div style="display: block; clear; float: left; width: 100%;">
+            <mat-chip style="margin-left: 10px; min-height: 20px; padding: 7px; background-color: #3f51b5; color: #fff;" [selectable]="false">
+              <i class="{{appAssociatedSnapIcon}} snap_icon"></i>{{appAssociatedSnaps}}
+            </mat-chip>
+            <b>Apps1 filesystem(s): </b>
+            <div *ngIf="showAppWarning" style="display: inline-block;">
+              <i style="color: red; margin-right: 4px;" class="fas fa-exclamation-triangle"></i>
+            </div>
+            {{appAssociatedSnapList}}
+          </div>
+          <!--<div style="display: block; clear left; float: left; width: 100%;">-->
+          <div style="display: block; clear; float: left; width: 100%;">
+            <mat-chip style="margin-left: 10px; min-height: 20px; padding: 7px; background-color: #3f51b5; color: #fff;" [selectable]="false">
+              <i class="{{dbAssociatedSnapIcon}} snap_icon"></i>{{dbAssociatedSnaps}}
+            </mat-chip>
+            <b>Informix filesystem(s): </b>
+            <div *ngIf="showDbWarning" style="display: inline-block;">
+              <i style="color: red; margin-right: 4px;" class="fas fa-exclamation-triangle"></i>
+            </div>
+            {{dbAssociatedSnapList}}
+          </div>
+        </mat-chip-list>
+        <div *ngIf="showDbWarning || showAppWarning" style="margin: 10px 0 0 5px; display: inline-block;">
+          <i style="color: red; margin: 0 4px 5px 0;" class="fas fa-exclamation-triangle"></i>
+          <mat-hint style="font-size: 12px;">Warning: The File system does not match the given zone, tripple check your selection.</mat-hint>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider style="margin-top: 15px; padding-bottom: 13px;"></mat-divider>
+  <div class="mat-expansion-panel-body" *ngIf="isSubmitted">
+    <h3 style="margin: 3px 0 3px 0;"><b>Uninstalling Zone(s)</b></h3>
+    <!--<h4 style="margin: 3px 0 3px 0;"><b>Halting Zone(s)</b></h4>-->
+    <table>
+      <thead>
+        <th style="text-align: left">Operation</th>
+        <th style="text-align: left">Details</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let zone of zoneHalt;let in = index">
+          <td style="overflow:hidden; width:96px; vertical-align: top;">
+            <i class="{{zone.haltActionResultsIcon}}"></i> {{zone.haltOperation}}
+          </td>
+          <td style="overflow:hidden; width:360px;">
+            <div>
+              <b>Location: </b> {{zone.haltRemoteHost}} <b style="margin-left: 6px;">Details: </b> {{zone.haltErrResult}}
+              <!--<div style="margin-left: 20px;"><b>Action(s): </b> {{zone.haltOperation}}</div>
+              <div style="margin-left: 20px;"><b>Details: </b> {{zone.haltErrResult}}</div>-->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--<h4 style="margin: 3px 0 3px 0;"><b>Uninstalling Zone(s)</b></h4>-->
+    <table>
+      <thead>
+        <th style="text-align: left">Operation</th>
+        <th style="text-align: left">Details</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let zone of zoneUnistl;let in = index">
+          <td style="overflow:hidden; width:96px; vertical-align: top;">
+            <i class="{{zone.unstlActionResultsIcon}}"></i>{{zone.unstlOperation}}
+          </td>
+          <td style="overflow:hidden; width:360px;">
+            <div>
+              <b>Location: </b> {{zone.unstlRemoteHost}} <b style="margin-left: 6px;">Details: </b> {{zone.unstlErrResult}}
+              <!--<div style="margin-left: 20px;"><b>Action(s): </b> {{zone.haltOperation}}</div>
+              <div style="margin-left: 20px;"><b>Error(s)(if any): </b> {{zone.unstlErrResult}}</div>-->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--<h4 style="margin: 3px 0 3px 0;"><b>Delete Zone Configuration</b></h4>-->
+    <table>
+      <thead>
+        <th style="text-align: left">Operation</th>
+        <th style="text-align: left">Details</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let zone of deleteZoneConfigProp;let in = index">
+          <td style="overflow:hidden; width:96px; vertical-align: top;">
+            <i class="{{zone.delActionResultsIcon}}"></i> {{zone.delOperation}}
+          </td>
+          <td style="overflow:hidden; width:360px;">
+            <div>
+              <b>Location: </b> {{zone.delRemoteHost}} <b style="margin-left: 6px;">Details: </b> {{zone.delErrResult}}
+              <!--<div style="margin-left: 20px;"><b>Action(s): </b> {{zone.haltOperation}}</div>
+              <div style="margin-left: 20px;"><b>Error(s)(if any): </b> {{zone.delErrResult}}</div>-->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-divider style="margin-top: 15px; padding-bottom: 13px;"></mat-divider>
+    <h3 style="margin: 3px 0 3px 0;"><b>Deleteing Associated snaps(s) / clones</b></h3>
+    <mat-divider style="margin-top: 15px; padding-bottom: 13px;"></mat-divider>
+    <!--<div style="display: flex; flex-direction: row;">-->
+    <div style="display: flex;">
+      <i class="{{delAssociatedSnapIcon}} snap_icon" style="margin-right: 6px;"></i>
+      Deleted snap/clone(s):
+      <mat-chip-list>
+        <b>APP: </b>
+        <mat-chip style="pointer-events: none; margin-left: 10px; min-height: 20px; padding: 7px;" color="primary" selected>
+          {{delAppAssociatedSnaps}}
+        </mat-chip>
+        of
+        <mat-chip style="pointer-events: none; margin-left: 10px; min-height: 20px; padding: 7px;" color="primary" selected>
+          {{appAssociatedSnaps}}
+        </mat-chip>
+        <b>DB: </b>
+        <mat-chip style="pointer-events: none; margin-left: 10px; min-height: 20px; padding: 7px;" color="primary" selected>
+          {{delDbAssociatedSnaps}}
+        </mat-chip>
+        of
+        <mat-chip style="pointer-events: none; margin-left: 10px; min-height: 20px; padding: 7px;" color="primary" selected>
+          {{dbAssociatedSnaps}}
+        </mat-chip>
+
+      </mat-chip-list>
+    </div>
+    <!--</div>-->
+  </div>
+  <mat-divider style="margin-top: 15px; padding-bottom: 13px;" *ngIf="isSubmitted"></mat-divider>
+  <div mat-dialog-actions style="text-align: center;">
+    <button mat-raised-button #submitBtn color="warn" (click)="confirmDelete(submitBtn, cancelBtn)" [disabled]="!isFormValid()">Delete</button>
+    <button mat-raised-button #cancelBtn color="primary" (click)="onCancel($event.target.textContent)" tabindex="-1">{{cancelBtnValue}}</button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 1
+    },
+    "auditLog": ".express-err-info-audit.json",
+    "files": [
+        {
+            "date": 1589981841545,
+            "name": "logs/express-err-info-05-20-2020.log",
+            "hash": "12e0f6397779b6076b40b2e602f51be9"
+        }
+    ]
+}

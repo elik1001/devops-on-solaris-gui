@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 425px;
+}
+
+.container > * {
+  width: 100%;
+}
+.snap_icon {
+  margin: 2px;
+  font-size: 13px;
+  color: #67b3ff;
+  line-height: 16px;
+}
+
+.negative-icon {
+  color: #ed5565;
+}
+
+.positive-icon {
+  color: #1ab394;
+}
+
+.neutral-icon {
+  // color: #d2a2fc;
+  color: #fa7241;
+}
+.pause-icon {
+  color: #d2a2fc;
+}
+.updating-icon {
+  color: #3d9df2;
+}
+.mat-expansion-panel-body {
+  overflow: auto;;
+  height: 160px;
+}
+.my-mat-standard-chip {
+  pointer-events: none;
+}
+mat-chip-list {
+    pointer-events: none;
+}

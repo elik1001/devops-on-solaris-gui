@@ -1,0 +1,44 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": ".express-exceptions-audit.json",
+    "files": [
+        {
+            "date": 1589298456533,
+            "name": "logs/express-exceptions-05-12-2020.log",
+            "hash": "2eea5e3851a1a17faf4ecbacada42301"
+        },
+        {
+            "date": 1589375395817,
+            "name": "logs/express-exceptions-05-13-2020.log",
+            "hash": "d3224a370263c8eee607278ebca48c8b"
+        },
+        {
+            "date": 1589462099145,
+            "name": "logs/express-exceptions-05-14-2020.log",
+            "hash": "b50ee6e3f70daa7dff7d34b6ada64e40"
+        },
+        {
+            "date": 1589553042739,
+            "name": "logs/express-exceptions-05-15-2020.log",
+            "hash": "d391f6664c92aba84f94240de67a580a"
+        },
+        {
+            "date": 1589823730062,
+            "name": "logs/express-exceptions-05-18-2020.log",
+            "hash": "a5f7576242bb9c931acd4e5d72bea32a"
+        },
+        {
+            "date": 1589894711873,
+            "name": "logs/express-exceptions-05-19-2020.log",
+            "hash": "3ecb1677646c0dc3b39d48a29cb27ad0"
+        },
+        {
+            "date": 1589981841538,
+            "name": "logs/express-exceptions-05-20-2020.log",
+            "hash": "0dc83da2fe83ce8cc5174f699b1c1014"
+        }
+    ]
+}

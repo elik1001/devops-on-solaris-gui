@@ -1,0 +1,25 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Edit Job: {{data.name}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onNoClick()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <mat-grid-list cols="1" rowHeight="180px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="form">
+            <p><b>Job: </b>{{data.name}}</p>
+            <mat-slide-toggle #reRun name="reRun" [checked]="toggleChecked" (change)="toggleChecked = $event.source.checked" required>Re-Run Job</mat-slide-toggle>
+          </div>
+          <div mat-dialog-actions>
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!toggleChecked" [mat-dialog-close]="1" (click)="editJob(data._id)">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

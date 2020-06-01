@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 1
+    },
+    "auditLog": ".express-info-audit.json",
+    "files": [
+        {
+            "date": 1589981841539,
+            "name": "logs/express-info-05-20-2020.log",
+            "hash": "39037e080c4053b7dd2da09daf9e1eba"
+        }
+    ]
+}

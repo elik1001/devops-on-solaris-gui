@@ -1,0 +1,103 @@
+<div class="container">
+  <mat-toolbar>
+    <span>Edit zone information: {{data.zoneName}} / data.zoneActive</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onNoClick()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <mat-grid-list cols="2" rowHeight="310px">
+      <mat-grid-tile>
+        <div class="controles-container" style="margin-top: 27px;">
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #id class="form-control" placeholder="ID" [(ngModel)]="data.id" name="id" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <input matInput #id class="form-control" placeholder="Zone Name" [(ngModel)]="data.zoneShortName" name="zoneShortName" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div style="margin: -15px 0 -15px;" class="form">
+            <mat-form-field color="accent">
+              <input matInput placeholder="Zone Description" [(ngModel)]="data.zoneDescription" name="zoneDescription">
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput placeholder="zonePort" [(ngModel)]="data.zonePort" name="zonePort" type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" required>
+              <mat-hint align="start">Select ports range between (31011-31254)</mat-hint>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <input matInput placeholder="zoneUser" [(ngModel)]="data.zoneUser" name="zoneUser" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <div style="margin: -15px 0; font-size: 14px;" class="mat-form-field-div">
+              <mat-checkbox #activeSchema olor="accent" labelPosition="before" name="activeSchema" [(ngModel)]="data.activeSchema">
+                <span matPrefix>
+                  <!--<mat-icon class="material-icons color_light_gray aligned-with-icon" style="cursor: initial;">lock_open</mat-icon>-->
+                  <mat-icon color="primary" style="font-size: 16px;" class="fa fa-database" aria-label="refreshDb"></mat-icon>
+                </span>
+                <label>Active Schema</label>
+              </mat-checkbox>
+              <mat-checkbox #zoneMaint olor="warn" labelPosition="before" name="zoneMaint" [(ngModel)]="data.zoneMaint">
+                <span style="margin-left: 12px;" matPrefix>
+                  <!--<mat-icon class="material-icons color_light_gray aligned-with-icon" style="cursor: initial;">lock_open</mat-icon>-->
+                  <mat-icon color="warn" style="font-size: 16px;" class="fa fa-tools" aria-label="zoneMaint"></mat-icon>
+                </span>
+                <label>Zone Maintenance</label>
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container" style="margin-top: 20px;">
+          <div class="form">
+            <mat-form-field color="accent">
+              <div *ngIf="data.zoneType !== 'DB'">
+                <input matInput placeholder="DB Version" [(ngModel)]="data.dbVer" name="dbVer" type="number" required [disabled]="!_authService.canZoneAdmin()">
+              </div>
+              <div *ngIf="data.zoneType === 'DB'">
+                <input matInput placeholder="DB Version" [(ngModel)]="data.dbVer" name="dbVer" type="number" required [disabled]="true">
+              </div>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <div *ngIf="data.zoneType !== 'FS'">
+                <input matInput placeholder="Apps Version" [(ngModel)]="data.appsVer" name="appsVer" type="number" required [disabled]="!_authService.canZoneAdmin()">
+              </div>
+              <div *ngIf="data.zoneType === 'FS'">
+                <input matInput placeholder="Apps Version" [(ngModel)]="data.appsVer" name="appsVer" type="number" required [disabled]="true">
+              </div>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field color="accent">
+              <mat-label>Zone locked</mat-label>
+              <select matNativeControl placeholder="Zone locked" [(ngModel)]="data.zoneLock" name="zoneLock" required [disabled]="!_authService.canZoneAdmin()">
+                <option value="lock_outlined">Locked</option>
+                <option value="lock_open">Open</option>
+              </select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div mat-dialog-actions align="right">
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

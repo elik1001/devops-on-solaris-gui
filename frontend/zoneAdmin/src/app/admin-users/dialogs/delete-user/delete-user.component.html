@@ -1,0 +1,15 @@
+<div class="container">
+  <h3 mat-dialog-title style="text-align: center;"><b>Are you sure? <br></b>Delete User: <b>{{data.userID}}?</b></h3>
+  <div mat-dialog-content>
+    <b>Users ID:</b> {{data.userID}}
+    <p></p>
+    <b>Users status:</b> {{data.isActive}}
+    <p></p>
+    <b>Users role:</b> {{data.adminRole}}
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete(data.userID)">Delete</button>
+    <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </div>
+</div>

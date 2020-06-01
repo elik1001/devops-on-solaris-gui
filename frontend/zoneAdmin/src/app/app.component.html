@@ -1,0 +1,186 @@
+<mat-toolbar id="mainToolbar" color="primary" class="navigation-bar mat-elevation-z6">
+  <!--<mat-icon id="toolbarMenu" (click)="sidenav.toggle()" name="button">subject</mat-icon>-->
+  <button *ngIf="_authService.loggedIn()" mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon *ngIf="_authService.loggedIn()" id="toolbarMenu" name="button">
+      menu
+    </mat-icon>
+  </button>
+  <span style="font-family: Righteous,cursive; margin-right: 8px;"><b><i>JIRA </i></b></span> VM Administration
+  <h1><span style="font-family: Righteous,cursive; margin-left: 15px;">/</span>
+  <span style="font-family: Righteous,cursive; margin-left: 15px;">{{topBarMessage}}</span></h1>
+  <!--{{ toolbar_title }}-->
+
+  <span class="toolbar-spacer"></span>
+
+  <!--<mat-icon class="toolbar-icon" matBadgePosition="after" matBadgeColor="accent">settings</mat-icon>-->
+  <span style="font-size: 7px; margin-right: -40px; margin-bottom: -34px;">Version: {{version}}</span>
+  <button mat-icon-button matBadgePosition="after" matBadgeColor="accent" [matMenuTriggerFor]="rightmenu">
+    <span>
+      <mat-icon>account_circle</mat-icon>
+
+      <!--<mat-icon>keyboard_arrow_down</mat-icon>-->
+
+      <mat-icon>arrow_drop_down</mat-icon>
+    </span>
+
+    <!--<mat-icon>keyboard_arrow_right</mat-icon>-->
+
+  </button>
+  <mat-menu #rightmenu="matMenu">
+    <a *ngIf="!_authService.loggedIn()" routerLink="/login" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Login</span>
+    </a>
+    <a *ngIf="!_authService.loggedIn()" routerLink="/register" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>person_add</mat-icon>
+      <span>Register</span>
+    </a>
+    <!--
+    <a *ngIf="_authService.loggedIn()" routerLink="/add-employee" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Add Employee</span>
+    </a>
+    <a *ngIf="_authService.loggedIn()" routerLink="/employees" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>people</mat-icon>
+      <span>Employee Administration</span>
+    </a>
+    -->
+    <!--<a *ngIf="_authService.loggedIn() && isAdmin" routerLink="/admin" routerLinkActive="active-menu-item" mat-menu-item>-->
+    <!--
+    <a *ngIf="_authService.loggedIn() && _authService.isAdmin()" routerLink="/admin" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Administrators</span>
+    </a>
+    -->
+    <a *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()" mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+
+      <!--<mat-icon>input</mat-icon>-->
+
+      <span>Logout</span>
+    </a>
+    <a *ngIf="_authService.loggedIn()" routerLink="/about" routerLinkActive="active-menu-item" mat-menu-item>
+      <mat-icon>description</mat-icon>
+      <span>About</span>
+    </a>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+
+    <mat-nav-list>
+      <h2 matSubheader> Jira VMs </h2>
+
+      <a mat-list-item routerLink="/" style="height: 0;"></a>
+
+      <a mat-list-item [routerLink]="'/main'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="app-nav-list-icon">home</mat-icon>
+        <!--<mat-icon>input</mat-icon>-->
+        <span>Home</span>
+      </a>
+
+      <mat-divider></mat-divider>
+
+      <a *ngIf="_authService.loggedIn() && _authService.canUsers()" mat-list-item [routerLink]="'/zone-admin'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-clone app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Zone Administration</span>
+      </a>
+      <!--
+      <a *ngIf="_authService.loggedIn() && _authService.canAgencyAdmin()" mat-list-item [routerLink]="'/add-agency-employees'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-user-plus app-nav-list-icon material-icons-two-tone" aria-hidden="true"></mat-icon>
+        <span>Add Agency Employee</span>
+      </a>
+      <a mat-list-item [routerLink]="'/employees'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-users app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Modify Employees</span>
+
+      </a>
+      <a mat-list-item [routerLink]="'/ldap-sync'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-key app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>LDAP Password Sync</span><span style="color: red;">&nbsp; NEW!</span>
+      </a>
+      <a mat-list-item [routerLink]="'/copy-user-profile'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-copy app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Copy Users Profile</span>
+      </a>
+      <a mat-list-item [routerLink]="'/move-employee'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-edit app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Update User Dept</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" mat-list-item [routerLink]="'/convert-agency'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="app-nav-list-icon">redo</mat-icon>
+        <span>Convert Agency to Employee</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" mat-list-item [routerLink]="'/delete-employee'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-trash app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Disable/Delete Employee</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" mat-list-item [routerLink]="'/enable-employee'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <span>
+          <mat-icon matListIcon class="app-nav-list-icon">person</mat-icon>
+          <mat-icon matListIcon style="color: #0099ff; margin-top: -5px; margin-left: 28px; font-size: 30px;" class="material-icons-two-tone fa-stack-1x main-center-icon-fa app-nav-list-icon">check</mat-icon>
+        </span>
+        <span>Re-Enable Employee</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canAdmin()" mat-list-item [routerLink]="'/create-printer'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="app-nav-list-icon">print</mat-icon>
+        <span>Create New Printer</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canAdmin()" mat-list-item [routerLink]="'/delete-printer'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <span>
+          <mat-icon matListIcon class="app-nav-list-icon">print</mat-icon>
+          <mat-icon matListIcon style="margin-top: -9px; margin-left: 22px; font-size: 37px;" class="material-icons-two-tone fa-stack-1x main-center-icon-fa app-nav-list-icon">close</mat-icon>
+        </span>
+        <span>Delete Printer</span>
+      </a>
+      -->
+
+      <mat-divider></mat-divider>
+      <h2 matSubheader> Access </h2>
+      <!--
+      <a *ngIf="_authService.loggedIn() && _authService.canAdmin()" mat-list-item [routerLink]="'/employee-types'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-snowflake app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Employee Types</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canAdmin()" mat-list-item [routerLink]="'/hr-group-mapping'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="fa fa-users app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>HR Group Mappings</span>
+      </a>-->
+
+      <a *ngIf="_authService.loggedIn() && _authService.canUsers()" mat-list-item [routerLink]="'/app-versions'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <!--<mat-icon matListIcon class="app-nav-list-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-snowflake app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>App Versions</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canAdmin()" mat-list-item [routerLink]="'/admin'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <!--<mat-icon matListIcon class="app-nav-list-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-cogs app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>App Administrators</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" mat-list-item [routerLink]="'/system-properties'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <!--<mat-icon matListIcon class="app-nav-list-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-cog app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>System Properties</span>
+      </a>
+      <a *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" mat-list-item [routerLink]="'/zone-jobs'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <!--<mat-icon matListIcon class="app-nav-list-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-tasks app-nav-list-icon" aria-hidden="true"></mat-icon>
+        <span>Update Zone Jobs</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="'/login'" routerLinkActive="active-menu-item" (click)="_authService.logoutUser();sidenav.toggle()">
+        <mat-icon matListIcon class="app-nav-list-icon">exit_to_app</mat-icon>
+        <span>Logout</span>
+      </a>
+      <a *ngIf="_authService.loggedIn()" mat-list-item [routerLink]="'/about'" routerLinkActive="active-menu-item" (click)="sidenav.toggle()">
+        <mat-icon matListIcon class="app-nav-list-icon">description</mat-icon>
+        <span>About</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

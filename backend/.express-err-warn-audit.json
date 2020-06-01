@@ -1,0 +1,44 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": ".express-err-warn-audit.json",
+    "files": [
+        {
+            "date": 1589298456539,
+            "name": "logs/express-err-warn-05-12-2020.log",
+            "hash": "02551564d71b7be57e28154de596a52b"
+        },
+        {
+            "date": 1589375396390,
+            "name": "logs/express-err-warn-05-13-2020.log",
+            "hash": "04e1c296b8c35d7d211e47a90b69b360"
+        },
+        {
+            "date": 1589462099160,
+            "name": "logs/express-err-warn-05-14-2020.log",
+            "hash": "d04622674eb64afac1023b691cb804c0"
+        },
+        {
+            "date": 1589553042749,
+            "name": "logs/express-err-warn-05-15-2020.log",
+            "hash": "3ff3adc54a2f994809d157302e2b54c7"
+        },
+        {
+            "date": 1589823730073,
+            "name": "logs/express-err-warn-05-18-2020.log",
+            "hash": "fd0f0024def7164b7e497eac6569cf92"
+        },
+        {
+            "date": 1589894711879,
+            "name": "logs/express-err-warn-05-19-2020.log",
+            "hash": "6720db7595f53b82d6c32d20be2575d0"
+        },
+        {
+            "date": 1589981841546,
+            "name": "logs/express-err-warn-05-20-2020.log",
+            "hash": "9e58e525b2a46dcfd0328a0dc02d1a5a"
+        }
+    ]
+}

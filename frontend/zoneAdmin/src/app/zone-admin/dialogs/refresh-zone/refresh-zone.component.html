@@ -1,0 +1,58 @@
+<div class="container">
+  <h3 mat-dialog-title style="text-align: center;">Refresh <b>{{data.zoneType}} Zone? <br>{{data.zoneName}}</b></h3>
+  <mat-divider style="margin-top: -15px;"></mat-divider>
+  <form #formControl="ngForm" [formGroup]="refreshZoneForm" (ngSubmit)="submit">
+    <mat-grid-list cols="1" rowHeight="275px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="mat-form-field-div">
+            <div>
+              <mat-radio-group style="font-size: 20px;" #refreshTypes name="refreshTypes" color="accent" formControlName="refreshTypes" aria-label="Select an option" (change)="refreshTypesChange($event)" required>
+                <mat-radio-button style="margin: 0 7px 7px 0;" checked="checked" class="example-radio-button" value="Both">Both</mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="DB">DB</mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="FS">FS</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div>
+            <mat-form-field style="width: 275px;">
+              <mat-label>Source DB to refresh</mat-label>
+              <mat-select #selectedDbSrcVer formControlName="selectedDbSrcVer" name="selectedDbSrcVer">
+                <mat-option *ngFor="let option of allDBVers" [value]="option.value">
+                  {{option.option}}
+                </mat-option>
+              </mat-select>
+              <mat-hint style="font-size: 65%;" align="start">
+                ** Indicates default DB.
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field style="width: 275px; margin-top: 5px;">
+              <mat-label>Source App version to refresh</mat-label>
+              <mat-select #selectedAppSrcVer formControlName="selectedAppSrcVer" name="selectedAppSrcVer">
+                <mat-option *ngFor="let option of allAppVers" [value]="option.value">
+                  {{option.option}}
+                </mat-option>
+              </mat-select>
+              <mat-hint style="font-size: 65%;" align="start">
+                ** Indicates default app.
+              </mat-hint>
+            </mat-form-field>
+            <div class="wrap">
+              <mat-checkbox #acceptUpdate formControlName="acceptUpdate" labelPosition="after" checked="false" required>
+                <label>I understood that all data will get wiped, therefor made sure to sync all data (with git) before counting.</label>
+              </mat-checkbox>
+            </div>
+          </div>
+          <mat-divider style="margin-top: 15px;"></mat-divider>
+          <div align="end" mat-dialog-actions>
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="refreshApp()">Refresh</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+            <!--[disabled]="!formControl.valid"-->
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
