@@ -16,7 +16,6 @@ ZFSSA
 The directory layout are explained below.
 
 <ol>
-<li></li>
 <li><b>backend: </b>All backend code (NodeJS) are in this directory.</li>
 <li><b>frontend/zoneAdmin: </b>All frontend code (Angular) are in this directory.</li>
 <li><b>docs: </b>Application documentation.</li>
@@ -27,8 +26,8 @@ First, download/clone the repository to your local host by running.
 <pre>
 git clone https://github.com/elik1001/devops-on-solaris-gui
 </pre>
-<ol>
 
+<ol>
 <li>Find a place on you local host to store and work with the application.<li>
 <li>Make sure to install NodeJS, you can download from here https://nodejs.org/en/download</li>
 <li>Make sure to configure a Mongo DB (local or remote)</li>
