@@ -41,7 +41,6 @@ ZFSSA
 
 The directory layout are explained below.
 <ol>
-<li></li>
 <li><b>backend: </b>All backend code (NodeJS) are in this directory.</li>
 <li><b>frontend/zoneAdmin: </b>All frontend code (Angular) are in this directory.</li>
 <li><b>docs: </b>Application documentation.</li>
