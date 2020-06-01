@@ -1,4 +1,4 @@
-<h3>Please read the Quick Starting Guide before following the below <a href="quick-setup.md">System Setup Documentation</a>.</h3>
+Please read the Quick Starting Guide before following the below <a href="quick-setup.md">System Setup Documentation</a>.
 
 To access the Web-UI you go to.
 <pre>
