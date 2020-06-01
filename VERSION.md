@@ -1,0 +1,84 @@
+<h3>Version: 0.8.2</h3>
+<ol>
+  <li><b>Fixed: </b>If you remove a DB/FS prior to removeing all associated snaps, would then casue an issue by trying to remve the associated zone using such snap(s).</li>
+</ol>
+<h3>Version: 0.8.1</h3>
+<ol>
+  <li><b>Fixed: </b>Miner refresh/sync file system front/backend fixes.</li>
+</ol>
+<h3>Version: 0.8.0</h3>
+<ol>
+  <li><b>Added: </b>While deleting a zone you will now see the snap and or file system name.</li>
+  <li><b>Added: </b>While deleting a zone you will now see the number of associated snaps - this is usfull in case of a DB/FS zone.</li>
+  <li><b>Added: </b>A warning will now let you know if you are trying to remove a DB/FS zone that is set with the wrong version number, menaing you will be removeing thw wrong filesystem.</li>
+  <li><b>Added: </b>Disabled the <i>update zone jobs</i> option for running jobs.</li>
+</ol>
+<h3>Version: 0.7.7</h3>
+<ol>
+  <li><b>Fixed: </b>Security fix to remove auth passwords from log files.</li>
+  <li><b>Fixed: </b>Update nas replication target to use properties settings.</li>
+  <li><b>Update/Fixed: </b>While removeing an FS/DB zone(s) the associated file system(s) will get removed.</li>
+  <li><b>Fixed: </b>Many other outstanding issues and bugs..</li>
+</ol>
+<h3>Version: 0.7.6</h3>
+<ol>
+  <li><b>Update: </b>Miner changes to the tag colors.</li>
+  <li><b>Fixed: </b>Miner backend fixes.</li>
+</ol>
+<h3>Version: 0.7.5</h3>
+<ol>
+  <li><b>NEW: </b>Added new status TAG(s).</li>
+  <li><b>Fixed: </b>Zone discovery system glitches. discovery will remove all zones from a particular server if that server is down or had errors.</li>
+  <li><b>Fixed: </b>Improved server CPU/Memory discovery glitches if server is unreachable or has errors.</li>
+</ol>
+<h3>Version: 0.7.4</h3>
+<ol>
+  <li><b>NEW: </b>New revamped Zone discovery system, with the new system, zones, zone status, will auto update i.e. add or removed.</li>
+  <li><b>Fixed: </b>Miner bug fixes.</li>
+</ol>
+<h3>Version: 0.7.3</h3>
+<ol>
+  <li><b>Update: </b>Disabled the Auto Zone discovry, things will now work much faster.</li>
+  <li><b>Update: </b>Decreased CPU stat to 30 seconds.</li>
+</ol>
+<p><b>Note: </b>the next and lily last update (besids bug fix) will come on the commnd line intrface</p>
+<h3>Version: 0.7.2</h3>
+<ol>
+  <li>
+    <b>NEW/Re-worked: </b>This build total re-worked the Zone create process.<br>
+Starting with this build (0.7.1+)High Availability/DisasterRecovery(HA/DR) has been build in from the start.<br>
+What this means to you. if you create a new Zone in DC1 and DC2 is down the zone will continue to be processed in dc1, a failed job will be created/saved for latter to run.<br>
+Once the issue has been resolved/fixed, the job can be re-submitted to continue.<br>
+<br>
+To help in the re-submit process, a new jobs list has been created, this will list all failed jobs (and running jobs) including a failed count, failed reason, etc.. to re-submit the job is as easy as clicking the re-submit option.<br>
+Also, the zone process/percent completed in the detail section has been updated, it will now show you details per Data Center.<br>
+  </li>
+  <li><b>Fixed: </b>This version fixes an outstanding issue with SMF working in aSync mode only. we now added an extra check to each step in the process.<br>This fix address many other issues, making sure things are executed in the proper order.</li>
+  <li><b>Update: </b>Added timing to file system refresh.</li>
+  <li><b>Update: </b>Update color on percent status bar.</li>
+  <li><b>Update: </b>Re-worked the zone expend strcuture, shuld fix the issue somtimes jumping while expanding.</li>
+</ol>
+<h3>Version: 0.6.5</h3>
+<ol>
+  <li><b>Updated: </b>Disable modifying the latest DB version field (automatically updated).</li>
+  <li><b>NEW: </b>Installing a new Zone will now display a percent progress bar.</li>
+  <li><b>NEW: </b>All logs not contain a Correlation-ID (experimental - additional work required).</li>
+  <li><b>NEW: </b>New safety feature, Zones in locked state cannot be deleted.</li>
+</ol>
+<br>
+<h3>Version: 0.6.4</h3>
+<ol>
+  <li><b>Updated </b>better scaleing for icons on main page </li>
+</ol>
+<br>
+<h3>Version: 0.6.3</h3>
+<ol>
+  <li><b>NEW </b>about page.This page </li>
+  <li><b>NEW: </b>Zone Maintenance option. you can now set a zone in Maintenance mode.</li>
+  If the default db/app zone is in Maintenance mode, the developer installing a new zone will get a warning message.<br>
+  A new indicator was added to the main screen to see if the zone is in Maintenance.
+  <li><b>NEW: </b>Refresh timer option, you can now set a time (min 10 seconds) to automatically refresh status.</li>
+  <li><b>Added: </b>SMF Color description, i.e. ONLINE = green.. etc.</li>
+  <li><b>Fixed: </b>Updating zone Lock now works</li>
+</ol>
+

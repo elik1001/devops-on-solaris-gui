@@ -1,0 +1,44 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 7
+    },
+    "auditLog": ".express-debug-audit.json",
+    "files": [
+        {
+            "date": 1589298456533,
+            "name": "logs/express-debug-05-12-2020.log",
+            "hash": "330788ecfc796948e21f7ffafec18e98"
+        },
+        {
+            "date": 1589375395817,
+            "name": "logs/express-debug-05-13-2020.log",
+            "hash": "b2160239644170f5841eee767d848609"
+        },
+        {
+            "date": 1589462099146,
+            "name": "logs/express-debug-05-14-2020.log",
+            "hash": "df1be02f31fb77cc82cce288f95d8d11"
+        },
+        {
+            "date": 1589553042739,
+            "name": "logs/express-debug-05-15-2020.log",
+            "hash": "176d27f6ea8de64793a6e1a9458e9139"
+        },
+        {
+            "date": 1589823730063,
+            "name": "logs/express-debug-05-18-2020.log",
+            "hash": "0f4bba6e2900aac6d02ad368ad931084"
+        },
+        {
+            "date": 1589894711873,
+            "name": "logs/express-debug-05-19-2020.log",
+            "hash": "d2dd420c56190465279e41fca73dda90"
+        },
+        {
+            "date": 1589981841538,
+            "name": "logs/express-debug-05-20-2020.log",
+            "hash": "95e46bc773488646d901f710cd8d44c1"
+        }
+    ]
+}

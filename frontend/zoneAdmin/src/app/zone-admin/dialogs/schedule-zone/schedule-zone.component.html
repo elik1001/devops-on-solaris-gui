@@ -1,0 +1,53 @@
+<div class="container">
+  <h3 mat-dialog-title style="text-align: center;">Update SMF For<b>{{data.zoneType}} Zone <br>{{data.zoneName}}</b></h3>
+  <mat-divider style="margin-top: -15px;"></mat-divider>
+  <form #formControl="ngForm" [formGroup]="updateSMFForm" (ngSubmit)="submit">
+    <mat-grid-list cols="1" rowHeight="225px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div>
+            <mat-icon [ngStyle]="{'color': smfStatus}" style="font-size: 14px; padding-top: 3px; text-shadow: 0px 0px 2px #3f51b5, 0px 0px 2px #3f51b5;" class="fa fa-circle" aria-label="status"></mat-icon>
+            <mat-form-field style="width: 340px;">
+              <mat-label>SMF Service</mat-label>
+              <mat-select #selectedSMF formControlName="selectedSMF" name="selectedSMF" (selectionChange)="selectedSMFChange($event)">
+                <mat-option value='application%2Fdevops,dbupdate'>Informix Schema Update</mat-option>
+                <mat-option value='application%2Fdevops,rmschmea'>Informix Schema Cleanup</mat-option>
+                <mat-option value='application%2Fapps1_mount,apps1src'>Apps1 Mount</mat-option>
+                <mat-option value='application%2Finformix_mount,ifxsrc'>Informix Mount</mat-option>
+                <mat-option value='application%2Finformix_startup,ifxsrvr'>Informix Start-UP</mat-option>
+              </mat-select>
+              <mat-hint style="font-size: 9px;" align="end">
+                <span>ONLINE</span>
+                <mat-icon style="color: #3CB371; margin: 0 2px 0 2px;" class="fa fa-circle"></mat-icon>
+                <span>DISABLED</span>
+                <mat-icon style="color: #d2a2fc; margin: 0 2px 0 2px;" class="fa fa-circle"></mat-icon>
+                <span>OFFLINE</span>
+                <mat-icon style="color: #f3be31; margin: 0 2px 0 2px;" class="fa fa-circle"></mat-icon>
+                <span>MAINT/DEGRADED</span>
+                <mat-icon style="color: red; margin: 0 2px 0 2px;" class="fa fa-circle"></mat-icon>
+                <span>UNKNOWN</span>
+                <mat-icon style="color: gray; margin: 0 2px 0 2px;" class="fa fa-circle"></mat-icon>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="mat-form-field-div">
+            <div>
+              <mat-radio-group style="font-size: 12px;" #smfRefreshType name="smfRefreshType" color="accent" formControlName="smfRefreshType" aria-label="Select an option" required>
+                <mat-radio-button [disabled]="enableSvc" class="example-radio-button" style="margin: 0 7px 7px 0;" value="enable">enable</mat-radio-button>
+                <mat-radio-button [disabled]="disableSvc" class="example-radio-button" value="disable">disable</mat-radio-button>
+                <mat-radio-button [disabled]="restartSvc" class="example-radio-button" value="restart">restart</mat-radio-button>
+                <mat-radio-button [disabled]="clearSvc" class="example-radio-button" value="clear">clear</mat-radio-button>
+                <mat-radio-button [disabled]="refreshSvc" class="example-radio-button" value="refresh">refresh</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <mat-divider style="margin-top: 15px;"></mat-divider>
+          <div align="end" mat-dialog-actions>
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" (click)="updateSMF()">Submit</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

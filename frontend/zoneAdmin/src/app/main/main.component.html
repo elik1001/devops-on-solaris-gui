@@ -1,0 +1,160 @@
+<mat-grid-list cols="5">
+
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canUsers()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/zone-admin'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="fa fa-clone main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <!--<mat-icon matListIcon class="fa fa-server main-center-icon-fa" aria-hidden="true"></mat-icon>-->
+        <p class="main-center-text-fa">JIRA Administration</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <!--
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canAgencyAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-agency-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/add-agency-employees'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon style="color: #C25283;" class="fa fa-user-plus main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">Add Agency Employee</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/employees'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="main-center-icon">people</mat-icon>
+        <p class="main-center-text">Modify Employees</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/ldap-sync'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="fa fa-key main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">LDAP Password Sync</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/copy-user-profile'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="fa fa-copy main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">Copy Users Profile</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/move-employee'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="fa fa-edit main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">Update Users Dept</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/convert-agency'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="main-center-icon">redo</mat-icon>
+        <p style="font-size: 11px; margin-right: -10px; margin-left: -10px;" class="main-center-text">Convert Agency to Employee</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/delete-employee'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="main-center-icon">delete_forever</mat-icon>
+        <p style="font-size: 11px;" class="main-center-text">Disable/Delete Employee</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canUsersAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/enable-employee'" routerLinkActive="active-menu-item">
+        <span class="fa-stack fa-3x">
+          <mat-icon style="font-size: 150px; margin-top: -15px; margin-left: -15px;" class="main-center-icon-fa">person</mat-icon>
+          <mat-icon style="color: #0099ff" class="material-icons-two-tone fa-stack-1x main-center-icon-fa">check</mat-icon>
+        </span>
+        <p class="main-center-text-fa">Re-Enable Employee</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/create-printer'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="main-center-icon">print</mat-icon>
+        <p style="font-size: 11px;" class="main-center-text">Create New Printer</p>
+        <p style="font-size: 10px;  margin: 0">(Comming soon)</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/delete-printer'" routerLinkActive="active-menu-item">
+        <span class="fa-stack fa-3x">
+          <mat-icon style="font-size: 150px; margin-top: -15px; margin-left: -15px;" class="main-center-icon-fa">print</mat-icon>
+          <mat-icon class="material-icons-two-tone fa-stack-1x main-center-icon-fa">close</mat-icon>
+        </span>
+        <p class="main-center-text-fa">Delete Printer</p>
+        <p style="font-size: 10px;  margin: 0">(Comming soon)</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  -->
+</mat-grid-list>
+<hr style="margin: 0;">
+
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canUsers()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/app-versions'" routerLinkActive="active-menu-item">
+
+        <mat-icon matListIcon class="fa fa-snowflake main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">App Versions</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+<!--
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/hr-group-mapping'" routerLinkActive="active-menu-item">
+
+        <mat-icon matListIcon class="fa fa-users main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">HR Group Mappings</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  -->
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/admin'" routerLinkActive="active-menu-item">
+        <!--<mat-icon matListIcon class="main-center-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-cogs main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">App Administrators</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/system-properties'" routerLinkActive="active-menu-item">
+        <!--<mat-icon matListIcon class="main-center-icon">settings</mat-icon>-->
+        <mat-icon matListIcon class="fa fa-cog main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">System Properties</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/about'" routerLinkActive="active-menu-item">
+        <mat-icon inline="true" matListIcon class="main-center-icon">description</mat-icon>
+        <p class="main-center-text">About</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="_authService.loggedIn() && _authService.canZoneAdmin()" gutterSize="5px">
+    <mat-card class="create-emp-card create-emp-card-color">
+      <a class="register-row-link" mat-list-item [routerLink]="'/zone-jobs'" routerLinkActive="active-menu-item">
+        <mat-icon matListIcon class="fa fa-tasks main-center-icon-fa" aria-hidden="true"></mat-icon>
+        <p class="main-center-text-fa">Update Zone Jobs</p>
+      </a>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

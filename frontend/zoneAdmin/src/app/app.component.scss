@@ -1,0 +1,87 @@
+.mat-sidenav-container {
+  height: 100%;
+}
+$sidenav-width: 360px; // 240px;
+
+.mat-sidenav {
+  width: $sidenav-width;
+  //background-color: lightcoral;
+}
+
+.toolbar-title {
+  margin: 0 16px;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+}
+
+.mat-subheader {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.app-nav-list-icon {
+  margin: 0 12px;
+}
+
+#toolbarMenu {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+#sidenav .menu-item mat-icon {
+  margin-right: 20px;
+  margin-left: 12px;
+}
+
+.dash-list h3 {
+  padding: 12px;
+}
+
+#mainToolbar .toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+#mainToolbar .toolbar-icon {
+  cursor: pointer;
+  margin: 0 8px;
+}
+
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+}
+
+mat-sidenav-container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  //top: 0;
+  //bottom: 0;
+  //left: 0;
+  //right: 0;
+  // background: #eee;
+}
+
+.content {
+  overflow: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+}
+
+.material-icons-two-tone {
+  //filter: invert(0.5) sepia(1) saturate(10) hue-rotate(180deg);
+  //font-size: 200px;
+  //margin-left: -37px;
+  //color: #6960EC;
+  //color: #0099ff;
+  color: #C25283;
+}

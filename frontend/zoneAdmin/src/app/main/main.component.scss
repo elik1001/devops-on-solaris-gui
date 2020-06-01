@@ -1,0 +1,76 @@
+.create-emp-card {
+  height: 75%;
+  width: 75%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //padding: 0 40px 30px 0;
+  //   text-align: center;
+}
+/*
+.mat-list-item-content-main {
+  margin: 0 -5px 0 0;
+}
+*/
+.main-center-text {
+  font-size: 100%;
+  margin: -8px 0 0;
+  //text-align: center;
+  //font-size: 13px;
+  //margin-top: -8px;
+  //padding: 0;
+}
+
+.main-center-text-fa {
+  //font-size: 13px;
+  font-size: 100%;
+  margin: 30px 0 0;
+}
+
+.main-center-icon-fa {
+  //font-size: 100px;
+  font-size: 700%;
+  //margin: -8px 0 0;
+  margin: 10px 0;
+  width: 130px;
+  text-align: center;
+}
+
+.register-row-link {
+  text-decoration: none;
+  color: #1e88e5;
+  margin: -8px 0 0;
+  // text-align: center;
+}
+
+.main-center-icon {
+  font-size: 925%;
+  margin: -15px 0;
+}
+
+.create-emp-card-color {
+  /*background-image:
+  //background-image: radial-gradient(#b7deed 8%, #21b4e2 20%, #71ceef 50%);
+
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(183,222,237,1) 0%, rgba(109,197,224,1) 16%, rgba(148,204,221,1) 29%, rgba(178,220,234,0.99) 52%, rgba(218,228,232,0.99) 67%, rgba(218,228,232,0.98) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(183,222,237,1) 0%,rgba(109,197,224,1) 16%,rgba(148,204,221,1) 29%,rgba(178,220,234,0.99) 52%,rgba(218,228,232,0.99) 67%,rgba(218,228,232,0.98) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  rgba(183,222,237,1) 0%,rgba(109,197,224,1) 16%,rgba(148,204,221,1) 29%,rgba(178,220,234,0.99) 52%,rgba(218,228,232,0.99) 67%,rgba(218,228,232,0.98) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#fadae4e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.create-emp-agency-card-color {
+  // background: -moz-radial-gradient(center, ellipse cover,  rgba(183,222,237,1) 0%, rgba(109,197,224,1) 16%, rgba(148,204,221,1) 29%, rgba(178,220,234,0.99) 52%, rgba(218,228,232,0.99) 67%, rgba(218,228,232,0.98) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(183,222,237,1) 0%,rgba(226,151,229,1) 16%,rgba(226,206,220,1) 29%,rgba(178,220,234,0.99) 52%,rgba(242,213,228,1) 67%,rgba(226,206,220,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  rgba(183,222,237,1) 0%,rgba(226,151,229,1) 16%,rgba(226,206,220,1) 29%,rgba(178,220,234,0.99) 52%,rgba(242,213,228,1) 67%,rgba(226,206,220,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5D9682', endColorstr='#fadae4e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.material-icons-two-tone {
+  //filter: invert(0.5) sepia(1) saturate(10) hue-rotate(180deg);
+  font-size: 200px;
+  margin-left: -37px;
+  //color: #6960EC;
+  //color: #0099ff;
+  color: #C25283
+}
