@@ -1,4 +1,4 @@
-<p><br><img src="images/web-ui-zoneadmin.png" alt="ZoneAdmin" align="middle" height="95%"></p>
+<p><br><img src="images/web-ui-zoneadmin.png" alt="ZoneAdmin"></p>
 
 This repository contains a Web GUI to create/delete/manage an Oracle Solaris DevOps like environment. the application is so configured that it is fully stateless such as its not depended on the Solaris environment.
 
